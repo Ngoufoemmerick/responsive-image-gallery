@@ -1,0 +1,296 @@
+{% set display_style = node.field_display_style.value %}
+{% set display_video_type = node.field_display_video_type.value %}
+
+{% set imageoneURL = file_url(node.field_image.entity.uri.value) %}
+{% set img_arr = node.field_image %}
+{% set length_image = node.field_image|length %}
+{% set img_alt = node.field_image.alt %}
+
+{% if display_style == 'left' or display_style == 'right' %}
+
+	{% if display_video_type and content.field_video_embed is not empty %}
+		<div class="col-md-12">
+			{{ content.field_video_embed }}
+		</div>
+	{% else %}
+		{% if length_image > 1 %}
+			<div id="owl-demo2" class="owl-carousel owl-theme">
+				{% for img_item in img_arr %}
+                    {% set imguri = img_item.entity.uri.value %}
+                    {% set image_720x324 = getUrlByImageStyle(imguri, 'image720x324') %}
+                    {% if image_720x324 %}
+                        <div class="item">
+                    		<div class="col-md-12">
+                            	<img src="{{ image_720x324 }}" alt="{{ img_item.alt }}" class="img-responsive"/>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+		{% else %}
+			<div class="col-md-12">	
+		        <img src="{{ imageoneURL }}" alt="{{ img_alt }}" class="img-responsive"/>                       
+		    </div>
+		{% endif %}
+	{% endif %}
+	
+    <!--end item-->
+    <div class="col-divider-margin-6"></div>
+    <div class="col-md-12">
+        <ul class="port-project-info">
+            <li><span>{{ content.field_project_by['#title'] }}</span> {{ content.field_project_by }}</li>
+            <li><span>{{ content.field_completed_date['#title'] }}</span> {{ content.field_completed_date }}</li>
+            <li><span>{{ content.field_skills['#title'] }}</span> {{ content.field_skills }}</li>
+            <li><span>{{ content.field_client['#title'] }}</span>{{ content.field_client }}</li>
+            <li><span>{{ content.field_website['#title'] }}</span> {{ content.field_website }}</li>
+        </ul>
+        <div class="clearfix"></div>
+        <ul class="social-icons h-anim-rotate socila-sm">
+            <li class="hover-facebook">
+                <a onClick="window.open('http://www.facebook.com/sharer.php?url={{ pageURL }}','Facebook','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://www.facebook.com/sharer.php?url={{ pageURL }}" target="_blank">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li class="hover-twitter">
+                <a onClick="window.open('http://twitter.com/share?url={{ pageURL }}&amp;text={{ title }}','Twitter share','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://twitter.com/share?url={{ pageURL }}&amp;text={{ title }}" target="_blank">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+       
+           <li><a onClick="window.open('https://plus.google.com/share?url={{ pageURL }}','Google plus','width=585,height=666,left='+(screen.availWidth/2-292)+',top='+(screen.availHeight/2-333)+''); return false;" href="https://plus.google.com/share?url={{ pageURL }}" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+        
+            <li><a onClick="window.open('http://www.linkedin.com/shareArticle?url={{ pageURL }}&mini=true&title={{ title }}&ro=false&summary={{ node.body.summary|length > 145 ? node.body.summary|slice(0,145) ~ '...' : node.body.summary }}&source=','Linkedin','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://www.linkedin.com/shareArticle?url={{ pageURL }}&mini=true&title={{ title }}&ro=false&summary={{ node.body.summary|length > 145 ? node.body.summary|slice(0,145) ~ '...' : node.body.summary }}&source=" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+            {# <li class="hover-stumbleupon">
+                <a href="#">
+                <i class="fa fa-stumbleupon" aria-hidden="true"></i>
+                </a>
+            </li> #}
+           
+        </ul>
+    </div>
+    <!--end item-->
+    <div class="clearfix"></div>
+    <br/><br/>
+    <div class="col-md-12">
+        <h4 class="font-weight-7">{{ content.body['#title'] }}</h4>
+    	{{ content|without('field_portfolio_categories','field_client','field_breadcrumb_image','field_display_style','field_completed_date','field_display_video_type','field_image','field_project_by','field_skills','field_subtitle','field_video_embed','field_website') }}
+    </div>
+    <!--end item-->
+
+{% else %}	        
+	{% if display_style == 'parallax' %}
+		
+		<!-- end section -->
+		<section class="sec-padding">
+		    <div class="container">
+		        <div class="row">
+		            {% if display_video_type and content.field_video_embed is not empty %}
+						<div class="col-md-12">
+							{{ content.field_video_embed }}
+						</div>
+					{% else %}
+						{% if length_image > 1 %}
+							<div id="owl-demo2" class="owl-carousel owl-theme">
+								{% for img_item in img_arr %}
+				                    {% set imguri = img_item.entity.uri.value %}
+				                    {% set image_1140x513 = getUrlByImageStyle(imguri, 'image1140x513') %}
+				                    {% if image_1140x513 %}
+				                        <div class="item">
+				                    		<div class="col-md-12">
+				                            	<img src="{{ image_1140x513 }}" alt="{{ img_item.alt }}" class="img-responsive"/>
+				                            </div>
+				                        </div>
+				                    {% endif %}
+				                {% endfor %}
+				            </div>
+						{% else %}
+							<div class="col-md-12">	
+						        <img src="{{ imageoneURL }}" alt="{{ img_alt }}" class="img-responsive"/>                       
+						    </div>
+						{% endif %}
+					{% endif %}
+		            <!--end item-->
+		            <div class="col-divider-margin-6"></div>
+		            <div class="col-md-6">
+		                <ul class="port-project-info">
+		                    <li><span>{{ content.field_project_by['#title'] }}</span> {{ content.field_project_by }}</li>
+		                    <li><span>{{ content.field_completed_date['#title'] }}</span> {{ content.field_completed_date }}</li>
+		                    <li><span>{{ content.field_skills['#title'] }}</span> {{ content.field_skills }}</li>
+		                    <li><span>{{ content.field_client['#title'] }}</span>{{ content.field_client }}</li>
+		                    <li><span>{{ content.field_website['#title'] }}</span> {{ content.field_website }}</li>
+		                </ul>
+		                <div class="clearfix"></div>
+		                <ul class="social-icons h-anim-rotate socila-sm">
+		                    <li class="hover-facebook">
+				                <a onClick="window.open('http://www.facebook.com/sharer.php?url={{ pageURL }}','Facebook','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://www.facebook.com/sharer.php?url={{ pageURL }}" target="_blank">
+				                <i class="fa fa-facebook" aria-hidden="true"></i>
+				                </a>
+				            </li>
+				            <li class="hover-twitter">
+				                <a onClick="window.open('http://twitter.com/share?url={{ pageURL }}&amp;text={{ title }}','Twitter share','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://twitter.com/share?url={{ pageURL }}&amp;text={{ title }}" target="_blank">
+				                <i class="fa fa-twitter" aria-hidden="true"></i>
+				                </a>
+				            </li>
+				       
+				           <li><a onClick="window.open('https://plus.google.com/share?url={{ pageURL }}','Google plus','width=585,height=666,left='+(screen.availWidth/2-292)+',top='+(screen.availHeight/2-333)+''); return false;" href="https://plus.google.com/share?url={{ pageURL }}" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+				        
+				            <li><a onClick="window.open('http://www.linkedin.com/shareArticle?url={{ pageURL }}&mini=true&title={{ title }}&ro=false&summary={{ node.body.summary|length > 145 ? node.body.summary|slice(0,145) ~ '...' : node.body.summary }}&source=','Linkedin','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://www.linkedin.com/shareArticle?url={{ pageURL }}&mini=true&title={{ title }}&ro=false&summary={{ node.body.summary|length > 145 ? node.body.summary|slice(0,145) ~ '...' : node.body.summary }}&source=" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+		                </ul>
+		            </div>
+		            <!--end item-->
+		            <div class="col-md-6">
+		                <h3 class="font-weight-7">{{ content.body['#title'] }}</h3>
+						{{ content|without('field_portfolio_categories','field_client','field_breadcrumb_image','field_display_style','field_completed_date','field_display_video_type','field_image','field_project_by','field_skills','field_subtitle','field_video_embed','field_website') }}
+		            </div>
+		            <!--end item-->
+		        </div>
+		    </div>
+		</section>
+		
+	{% elseif display_style == 'fullwidth_image' %}
+		<!--end menu-->
+		<div class="clearfix"></div>
+		<section>
+		    <div class="container-fulid">
+		        <div class="row nopadding">
+		            {% if display_video_type and content.field_video_embed is not empty %}
+						<div class="col-md-12">
+							{{ content.field_video_embed }}
+						</div>
+					{% else %}
+						{% if length_image > 1 %}
+							<div id="owl-demo2" class="owl-carousel owl-theme">
+								{% for img_item in img_arr %}
+				                    {% set imguri = img_item.entity.uri.value %}
+				                    {% set image_1140x513 = getUrlByImageStyle(imguri, 'image1140x513') %}
+				                    {% if image_1140x513 %}
+				                        <div class="item">
+				                    		<div class="col-md-12">
+				                            	<img src="{{ image_1140x513 }}" alt="{{ img_item.alt }}" class="img-responsive"/>
+				                            </div>
+				                        </div>
+				                    {% endif %}
+				                {% endfor %}
+				            </div>
+						{% else %}
+							<div class="col-md-12">	
+						        <img src="{{ imageoneURL }}" alt="{{ img_alt }}" class="img-responsive"/>                       
+						    </div>
+						{% endif %}
+					{% endif %}
+		            <!--end carousel-->
+		            <div class="col-divider-margin-6"></div>
+		            <div class="col-md-6">
+		                <ul class="port-project-info">
+		                    <li><span>{{ content.field_project_by['#title'] }}</span> {{ content.field_project_by }}</li>
+		                    <li><span>{{ content.field_completed_date['#title'] }}</span> {{ content.field_completed_date }}</li>
+		                    <li><span>{{ content.field_skills['#title'] }}</span> {{ content.field_skills }}</li>
+		                    <li><span>{{ content.field_client['#title'] }}</span>{{ content.field_client }}</li>
+		                    <li><span>{{ content.field_website['#title'] }}</span> {{ content.field_website }}</li>
+		                </ul>
+		                <div class="clearfix"></div>
+		                <ul class="social-icons h-anim-rotate socila-sm">
+		                    <li class="hover-facebook">
+				                <a onClick="window.open('http://www.facebook.com/sharer.php?url={{ pageURL }}','Facebook','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://www.facebook.com/sharer.php?url={{ pageURL }}" target="_blank">
+				                <i class="fa fa-facebook" aria-hidden="true"></i>
+				                </a>
+				            </li>
+				            <li class="hover-twitter">
+				                <a onClick="window.open('http://twitter.com/share?url={{ pageURL }}&amp;text={{ title }}','Twitter share','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://twitter.com/share?url={{ pageURL }}&amp;text={{ title }}" target="_blank">
+				                <i class="fa fa-twitter" aria-hidden="true"></i>
+				                </a>
+				            </li>
+				       
+				           <li><a onClick="window.open('https://plus.google.com/share?url={{ pageURL }}','Google plus','width=585,height=666,left='+(screen.availWidth/2-292)+',top='+(screen.availHeight/2-333)+''); return false;" href="https://plus.google.com/share?url={{ pageURL }}" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+				        
+				            <li><a onClick="window.open('http://www.linkedin.com/shareArticle?url={{ pageURL }}&mini=true&title={{ title }}&ro=false&summary={{ node.body.summary|length > 145 ? node.body.summary|slice(0,145) ~ '...' : node.body.summary }}&source=','Linkedin','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://www.linkedin.com/shareArticle?url={{ pageURL }}&mini=true&title={{ title }}&ro=false&summary={{ node.body.summary|length > 145 ? node.body.summary|slice(0,145) ~ '...' : node.body.summary }}&source=" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+		                </ul>
+		            </div>
+		            <!--end item-->
+		            <div class="col-md-6">
+		                <h3 class="font-weight-7">{{ content.body['#title'] }}</h3>
+						{{ content|without('field_portfolio_categories','field_client','field_breadcrumb_image','field_display_style','field_completed_date','field_display_video_type','field_image','field_project_by','field_skills','field_subtitle','field_video_embed','field_website') }}
+		            </div>
+		            <!--end item-->
+		        </div>
+		    </div>
+		</section>
+			
+	{% else %}
+		<div class="clearfix"></div>
+		<!-- end page title -->
+		<section class="sec-padding">
+		    <div class="container">
+		        <div class="row">
+		            {% if display_video_type and content.field_video_embed is not empty %}
+						<div class="col-md-12">
+							{{ content.field_video_embed }}
+						</div>
+					{% else %}
+						{% if length_image > 1 %}
+							<div id="owl-demo2" class="owl-carousel owl-theme">
+								{% for img_item in img_arr %}
+				                    {% set imguri = img_item.entity.uri.value %}
+				                    {% set image_1140x513 = getUrlByImageStyle(imguri, 'image1140x513') %}
+				                    {% if image_1140x513 %}
+				                        <div class="item">
+				                    		<div class="col-md-12">
+				                            	<img src="{{ image_1140x513 }}" alt="{{ img_item.alt }}" class="img-responsive"/>
+				                            </div>
+				                        </div>
+				                    {% endif %}
+				                {% endfor %}
+				            </div>
+						{% else %}
+							<div class="col-md-12">	
+						        <img src="{{ imageoneURL }}" alt="{{ img_alt }}" class="img-responsive"/>                       
+						    </div>
+						{% endif %}
+					{% endif %}
+		            <!--end carousel-->
+		            <div class="col-divider-margin-6"></div>
+		            <div class="col-md-6">
+		                <ul class="port-project-info">
+		                    <li><span>{{ content.field_project_by['#title'] }}</span> {{ content.field_project_by }}</li>
+		                    <li><span>{{ content.field_completed_date['#title'] }}</span> {{ content.field_completed_date }}</li>
+		                    <li><span>{{ content.field_skills['#title'] }}</span> {{ content.field_skills }}</li>
+		                    <li><span>{{ content.field_client['#title'] }}</span>{{ content.field_client }}</li>
+		                    <li><span>{{ content.field_website['#title'] }}</span> {{ content.field_website }}</li>
+		                </ul>
+		                <div class="clearfix"></div>
+		                <ul class="social-icons h-anim-rotate socila-sm">
+						    <li class="hover-facebook">
+				                <a onClick="window.open('http://www.facebook.com/sharer.php?url={{ pageURL }}','Facebook','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://www.facebook.com/sharer.php?url={{ pageURL }}" target="_blank">
+				                <i class="fa fa-facebook" aria-hidden="true"></i>
+				                </a>
+				            </li>
+				            <li class="hover-twitter">
+				                <a onClick="window.open('http://twitter.com/share?url={{ pageURL }}&amp;text={{ title }}','Twitter share','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://twitter.com/share?url={{ pageURL }}&amp;text={{ title }}" target="_blank">
+				                <i class="fa fa-twitter" aria-hidden="true"></i>
+				                </a>
+				            </li>
+				       
+				           <li><a onClick="window.open('https://plus.google.com/share?url={{ pageURL }}','Google plus','width=585,height=666,left='+(screen.availWidth/2-292)+',top='+(screen.availHeight/2-333)+''); return false;" href="https://plus.google.com/share?url={{ pageURL }}" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+				        
+				            <li><a onClick="window.open('http://www.linkedin.com/shareArticle?url={{ pageURL }}&mini=true&title={{ title }}&ro=false&summary={{ node.body.summary|length > 145 ? node.body.summary|slice(0,145) ~ '...' : node.body.summary }}&source=','Linkedin','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="http://www.linkedin.com/shareArticle?url={{ pageURL }}&mini=true&title={{ title }}&ro=false&summary={{ node.body.summary|length > 145 ? node.body.summary|slice(0,145) ~ '...' : node.body.summary }}&source=" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+		                </ul>
+		            </div>
+		            <!--end item-->
+		            <div class="col-md-6">
+		                <h3 class="font-weight-7">{{ content.body['#title'] }}</h3>
+		                {{ content|without('field_portfolio_categories','field_client','field_breadcrumb_image','field_display_style','field_completed_date','field_display_video_type','field_image','field_project_by','field_skills','field_subtitle','field_video_embed','field_website') }}
+		            </div>
+		            <!--end item-->
+		        </div>
+		    </div>
+		</section>
+	{% endif %}
+		<div class="divider-line solid light"></div>
+		<section class="sec-padding">
+		    <div class="container">
+		        <div class="row">
+		            {{ drupal_view('_matri_block_portfolio', 'block_portfolio_single') }}
+		        </div>
+		    </div>
+		</section>
+{% endif %}
